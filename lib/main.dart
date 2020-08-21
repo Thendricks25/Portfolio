@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher_web/url_launcher_web.dart';
 
 void main() {
   runApp(MyApp());
@@ -175,6 +177,7 @@ print( "A software developer that uses the'''
                   ExactAssetImage('images/Breathe_app_demo.gif'),
                   ExactAssetImage('images/stats.png'),
                 ],
+                url: "https://github.com/weare10/breathe",
               ),
               Center(
                 child: Text(
@@ -262,10 +265,19 @@ class ContactForm extends StatelessWidget {
 }
 
 class ProjectTile extends StatelessWidget {
-  ProjectTile({this.appTitle, this.appDescription, this.images});
+  ProjectTile({this.appTitle, this.appDescription, this.images, this.url});
   final String appTitle;
   final String appDescription;
   final images;
+  final url;
+
+  launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -284,8 +296,8 @@ class ProjectTile extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              //Images of app
-              getValueForScreenType<Widget>(),
+              //if mobile display in column, if desktop display in row
+              //getValueForScreenType<Widget>(),
               Container(
                 height: 500,
                 width: 300,
@@ -302,6 +314,14 @@ class ProjectTile extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
               //github icon
+              FlatButton(
+                child: Image(image: AssetImage('images/github icon.png')),
+                splashColor: Colors.white,
+                onPressed: () {
+                  launchURL(url);
+                },
+                focusColor: Colors.white,
+              ),
               SizedBox(height: 100),
             ]),
       ),
