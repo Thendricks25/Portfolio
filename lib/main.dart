@@ -195,17 +195,25 @@ print( "A software developer that uses the'''
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ContactForm(
+                        input: (value) {
+                          var Name = value;
+                        },
                         height: 40,
                         width: 300,
                         hintText: "Name",
                       ),
                       ContactForm(
+                        input: (value) {
+                          var Email = value;
+                        },
                         height: 40,
                         width: 300,
                         hintText: "Email",
                       ),
                       ContactForm(
-                        // height: 300,
+                        input: (value) {
+                          var Message = value;
+                        },
                         width: 300,
                         hintText: "Message",
                         maxLines: 15,
@@ -234,11 +242,13 @@ print( "A software developer that uses the'''
 }
 
 class ContactForm extends StatelessWidget {
-  const ContactForm({this.width, this.height, this.hintText, this.maxLines});
+  const ContactForm(
+      {this.width, this.height, this.hintText, this.maxLines, this.input});
   final double width;
   final double height;
   final String hintText;
   final int maxLines;
+  final input;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -247,6 +257,7 @@ class ContactForm extends StatelessWidget {
         width: width,
         height: height,
         child: TextField(
+          onChanged: input,
           maxLines: maxLines,
           decoration: InputDecoration(
               filled: true,
