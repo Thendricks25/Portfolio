@@ -4,6 +4,11 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+String name;
+String email;
+String message;
 
 void main() {
   runApp(MyApp());
@@ -27,6 +32,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  submitForm() {
+    firestore.collection('contact').add({
+      'Name': name,
+      'Email': email,
+      'Message': message,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -196,7 +210,9 @@ print( "A software developer that uses the'''
                     children: [
                       ContactForm(
                         input: (value) {
-                          var Name = value;
+                          setState(() {
+                            name = value;
+                          });
                         },
                         height: 40,
                         width: 300,
@@ -204,7 +220,9 @@ print( "A software developer that uses the'''
                       ),
                       ContactForm(
                         input: (value) {
-                          var Email = value;
+                          setState(() {
+                            email = value;
+                          });
                         },
                         height: 40,
                         width: 300,
@@ -212,14 +230,18 @@ print( "A software developer that uses the'''
                       ),
                       ContactForm(
                         input: (value) {
-                          var Message = value;
+                          setState(() {
+                            message = value;
+                          });
                         },
                         width: 300,
                         hintText: "Message",
                         maxLines: 15,
                       ),
                       OutlineButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          submitForm();
+                        },
                         child: Text(
                           'Submit',
                           style: TextStyle(color: Colors.lightBlueAccent),
