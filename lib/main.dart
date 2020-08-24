@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Portfolio',
       theme: ThemeData.dark(),
       home: MyHomePage(),
     );
@@ -293,7 +293,10 @@ class ProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100),
+      padding: EdgeInsets.symmetric(
+        horizontal:
+            getValueForScreenType(context: context, mobile: 50, desktop: 100),
+      ),
       child: Container(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
