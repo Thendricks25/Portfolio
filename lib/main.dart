@@ -10,6 +10,7 @@ String name;
 String email;
 String message;
 
+final checkTheForm = GlobalKey<FormState>();
 void main() {
   runApp(MyApp());
 }
@@ -162,6 +163,7 @@ print( "A software developer that uses the'''
                   ExactAssetImage('images/weather forcaste.png'),
                   ExactAssetImage('images/weather search.png'),
                 ],
+                github: false,
               ),
               ProjectTile(
                 appTitle: 'Shopping List',
@@ -179,6 +181,7 @@ print( "A software developer that uses the'''
                   ExactAssetImage('images/Shopping list change bkgrd.png'),
                   ExactAssetImage('images/Shopping list second bkgd.png'),
                 ],
+                github: false,
               ),
               ProjectTile(
                 appTitle: 'Breathe',
@@ -192,6 +195,7 @@ print( "A software developer that uses the'''
                   ExactAssetImage('images/stats.png'),
                 ],
                 url: "https://github.com/weare10/breathe",
+                github: true,
               ),
               Center(
                 child: Text(
@@ -208,39 +212,43 @@ print( "A software developer that uses the'''
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ContactForm(
-                        input: (value) {
-                          setState(() {
-                            name = value;
-                          });
-                        },
-                        height: 40,
-                        width: 300,
-                        hintText: "Name",
-                      ),
-                      ContactForm(
-                        input: (value) {
-                          setState(() {
-                            email = value;
-                          });
-                        },
-                        height: 40,
-                        width: 300,
-                        hintText: "Email",
-                      ),
-                      ContactForm(
-                        input: (value) {
-                          setState(() {
-                            message = value;
-                          });
-                        },
-                        width: 300,
-                        hintText: "Message",
-                        maxLines: 15,
-                      ),
+                      ContactFormFields(),
+//                      ContactForm(
+//                        input: (value) {
+//                          setState(() {
+//                            name = value;
+//                          });
+//                        },
+//                        height: 40,
+//                        width: 300,
+//                        hintText: "Name",
+//                      ),
+//                      ContactForm(
+//                        input: (value) {
+//                          setState(() {
+//                            email = value;
+//                          });
+//                        },
+//                        height: 40,
+//                        width: 300,
+//                        hintText: "Email",
+//                      ),
+//                      ContactForm(
+//                        input: (value) {
+//                          setState(() {
+//                            message = value;
+//                          });
+//                        },
+//                        width: 300,
+//                        hintText: "Message",
+//                        maxLines: 15,
+//                      ),
                       OutlineButton(
                         onPressed: () {
-                          submitForm();
+                          if (checkTheForm.currentState.validate()) {
+                            checkTheForm.currentState.save();
+                            submitForm();
+                          }
                         },
                         child: Text(
                           'Submit',
@@ -278,19 +286,119 @@ class ContactForm extends StatelessWidget {
       child: Container(
         width: width,
         height: height,
-        child: TextField(
-          onChanged: input,
-          maxLines: maxLines,
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              hintText: hintText,
-              hintStyle: TextStyle(color: Colors.black54),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              contentPadding: EdgeInsets.all(8)),
-          textCapitalization: TextCapitalization.words,
-          style: TextStyle(color: Colors.black),
+        child: Form(
+          key: checkTheForm,
+          child: TextFormField(
+            validator: (value) {
+              if (value.isEmpty) {
+                return "This field cannot be empty";
+              }
+              return null;
+            },
+            onChanged: input,
+            maxLines: maxLines,
+            decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: hintText,
+                hintStyle: TextStyle(color: Colors.black54),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                contentPadding: EdgeInsets.all(8)),
+            textCapitalization: TextCapitalization.words,
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ContactFormFields extends StatefulWidget {
+  @override
+  _ContactFormFieldsState createState() => _ContactFormFieldsState();
+}
+
+class _ContactFormFieldsState extends State<ContactFormFields> {
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: checkTheForm,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 150.0),
+        child: Column(
+          children: [
+            TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "This field cannot be empty";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                name = value;
+              },
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Name',
+                  hintStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  contentPadding: EdgeInsets.all(8)),
+              textCapitalization: TextCapitalization.words,
+              style: TextStyle(color: Colors.black),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "This field cannot be empty";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                email = value;
+              },
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Email',
+                  hintStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  contentPadding: EdgeInsets.all(8)),
+              textCapitalization: TextCapitalization.words,
+              style: TextStyle(color: Colors.black),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "This field cannot be empty";
+                }
+                return null;
+              },
+              onSaved: (value) {
+                message = value;
+              },
+              maxLines: 15,
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Message',
+                  hintStyle: TextStyle(color: Colors.black54),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8))),
+                  contentPadding: EdgeInsets.all(8)),
+              textCapitalization: TextCapitalization.words,
+              style: TextStyle(color: Colors.black),
+            ),
+          ],
         ),
       ),
     );
@@ -298,11 +406,13 @@ class ContactForm extends StatelessWidget {
 }
 
 class ProjectTile extends StatelessWidget {
-  ProjectTile({this.appTitle, this.appDescription, this.images, this.url});
+  ProjectTile(
+      {this.appTitle, this.appDescription, this.images, this.url, this.github});
   final String appTitle;
   final String appDescription;
   final images;
   final url;
+  final bool github;
 
   launchURL(url) async {
     if (await canLaunch(url)) {
@@ -350,14 +460,16 @@ class ProjectTile extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
               //github icon
-              FlatButton(
-                child: Image(image: AssetImage('images/github icon.png')),
-                splashColor: Colors.white,
-                onPressed: () {
-                  launchURL(url);
-                },
-                focusColor: Colors.white,
-              ),
+              github
+                  ? FlatButton(
+                      child: Image(image: AssetImage('images/github icon.png')),
+                      splashColor: Colors.white,
+                      onPressed: () {
+                        launchURL(url);
+                      },
+                      focusColor: Colors.white,
+                    )
+                  : Container(),
               SizedBox(height: 100),
             ]),
       ),
@@ -375,7 +487,7 @@ class TitleLine extends StatelessWidget {
       text,
       style: TextStyle(
           fontSize: getValueForScreenType(
-              context: context, mobile: 24, tablet: 30, desktop: 45),
+              context: context, mobile: 20, tablet: 30, desktop: 45),
           color: color),
     );
   }
