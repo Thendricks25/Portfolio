@@ -10,6 +10,9 @@ String name;
 String email;
 String message;
 
+TextEditingController controller = TextEditingController();
+TextEditingController controller2 = TextEditingController();
+TextEditingController controller3 = TextEditingController();
 final checkTheForm = GlobalKey<FormState>();
 void main() {
   runApp(MyApp());
@@ -213,51 +216,28 @@ print( "A software developer that uses the'''
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ContactFormFields(),
-//                      ContactForm(
-//                        input: (value) {
-//                          setState(() {
-//                            name = value;
-//                          });
-//                        },
-//                        height: 40,
-//                        width: 300,
-//                        hintText: "Name",
-//                      ),
-//                      ContactForm(
-//                        input: (value) {
-//                          setState(() {
-//                            email = value;
-//                          });
-//                        },
-//                        height: 40,
-//                        width: 300,
-//                        hintText: "Email",
-//                      ),
-//                      ContactForm(
-//                        input: (value) {
-//                          setState(() {
-//                            message = value;
-//                          });
-//                        },
-//                        width: 300,
-//                        hintText: "Message",
-//                        maxLines: 15,
-//                      ),
-                      OutlineButton(
-                        onPressed: () {
-                          if (checkTheForm.currentState.validate()) {
-                            checkTheForm.currentState.save();
-                            submitForm();
-                          }
-                        },
-                        child: Text(
-                          'Submit',
-                          style: TextStyle(color: Colors.lightBlueAccent),
+                      Builder(
+                        builder: (context) => OutlineButton(
+                          onPressed: () {
+                            if (checkTheForm.currentState.validate()) {
+                              checkTheForm.currentState.save();
+                              submitForm();
+                              controller.clear();
+                              controller2.clear();
+                              controller3.clear();
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('Message Sent')));
+                            }
+                          },
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(color: Colors.lightBlueAccent),
+                          ),
+                          color: Colors.lightBlueAccent,
+                          splashColor: Colors.white,
+                          focusColor: Colors.lightBlueAccent,
+                          hoverColor: Colors.white10,
                         ),
-                        color: Colors.lightBlueAccent,
-                        splashColor: Colors.white,
-                        focusColor: Colors.lightBlueAccent,
-                        hoverColor: Colors.white10,
                       )
                     ],
                   ),
@@ -266,49 +246,6 @@ print( "A software developer that uses the'''
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ContactForm extends StatelessWidget {
-  const ContactForm(
-      {this.width, this.height, this.hintText, this.maxLines, this.input});
-  final double width;
-  final double height;
-  final String hintText;
-  final int maxLines;
-  final input;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: width,
-        height: height,
-        child: Form(
-          key: checkTheForm,
-          child: TextFormField(
-            validator: (value) {
-              if (value.isEmpty) {
-                return "This field cannot be empty";
-              }
-              return null;
-            },
-            onChanged: input,
-            maxLines: maxLines,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: hintText,
-                hintStyle: TextStyle(color: Colors.black54),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                contentPadding: EdgeInsets.all(8)),
-            textCapitalization: TextCapitalization.words,
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
       ),
     );
   }
@@ -329,6 +266,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
         child: Column(
           children: [
             TextFormField(
+              controller: controller,
               validator: (value) {
                 if (value.isEmpty) {
                   return "This field cannot be empty";
@@ -353,6 +291,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
               height: 25,
             ),
             TextFormField(
+              controller: controller2,
               validator: (value) {
                 if (value.isEmpty) {
                   return "This field cannot be empty";
@@ -377,6 +316,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
               height: 25,
             ),
             TextFormField(
+              controller: controller3,
               validator: (value) {
                 if (value.isEmpty) {
                   return "This field cannot be empty";
