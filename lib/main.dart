@@ -210,12 +210,14 @@ print( "A software developer that uses the'''
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 28.0, bottom: 10),
+                padding: const EdgeInsets.only(left: 28.0, bottom: 10, top: 20),
                 child: Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ContactFormFields(),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Builder(
                         builder: (context) => OutlineButton(
                           onPressed: () {
