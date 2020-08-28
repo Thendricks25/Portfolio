@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
+import 'package:portfolio/ContactForm.dart';
+import 'ProjectTiles.dart';
 
 String name;
 String email;
@@ -62,12 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       body: Stack(
         children: [
@@ -284,228 +280,20 @@ print( "A software developer that uses the'''
               ),
             ],
           ),
-          FlutterWebScroller(
-            scrollCallBack,
-            dragHandleColor: Colors.lightBlueAccent,
-            scrollBarBackgroundColor: Colors.white10,
-            scrollBarWidth: 20,
-            dragHandleHeight: 40,
-            dragHandleWidth: 15,
+          getValueForScreenType(
+            context: context,
+            desktop: FlutterWebScroller(
+              scrollCallBack,
+              dragHandleColor: Colors.lightBlueAccent,
+              scrollBarBackgroundColor: Colors.white10,
+              scrollBarWidth: 20,
+              dragHandleHeight: 40,
+              dragHandleWidth: 15,
+            ),
+            mobile: Container(),
+            tablet: Container(),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ContactFormFields extends StatefulWidget {
-  @override
-  _ContactFormFieldsState createState() => _ContactFormFieldsState();
-}
-
-class _ContactFormFieldsState extends State<ContactFormFields> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 350,
-      child: Form(
-        key: checkTheForm,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: getValueForScreenType(
-                  context: context, mobile: 50, desktop: 0, tablet: 0)),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: controller,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "This field cannot be empty";
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  name = value;
-                },
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Name',
-                    hintStyle: TextStyle(color: Colors.black54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    contentPadding: EdgeInsets.all(8)),
-                textCapitalization: TextCapitalization.words,
-                style: TextStyle(color: Colors.black),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              TextFormField(
-                controller: controller2,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "This field cannot be empty";
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  email = value;
-                },
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Email',
-                    hintStyle: TextStyle(color: Colors.black54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    contentPadding: EdgeInsets.all(8)),
-                textCapitalization: TextCapitalization.words,
-                style: TextStyle(color: Colors.black),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              TextFormField(
-                controller: controller3,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "This field cannot be empty";
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  message = value;
-                },
-                maxLines: 15,
-                decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'Message',
-                    hintStyle: TextStyle(color: Colors.black54),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                    contentPadding: EdgeInsets.all(8)),
-                textCapitalization: TextCapitalization.words,
-                style: TextStyle(color: Colors.black),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ProjectTile extends StatelessWidget {
-  ProjectTile(
-      {this.appTitle,
-      this.appDescription,
-      this.images,
-      this.url,
-      this.github,
-      this.nolan});
-  final String appTitle;
-  final String appDescription;
-  final images;
-  final url;
-  final bool github;
-  final bool nolan;
-
-  launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal:
-            getValueForScreenType(context: context, mobile: 50, desktop: 100),
-      ),
-      child: Container(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                appTitle,
-                style: TextStyle(fontSize: 30),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              //if mobile display in column, if desktop display in row
-              //getValueForScreenType<Widget>(),
-              Row(
-                children: [
-                  Container(
-                    height: 500,
-                    width: 300,
-                    child: Carousel(
-                      images: images,
-                      dotColor: Colors.lightBlueAccent,
-                      dotIncreasedColor: Colors.lightBlueAccent,
-                      autoplay: false,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  nolan
-                      ? Column(
-                          children: [
-                            Text(
-                              'Developers:',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Text(
-                              'Tateyana Hendricks',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            InkWell(
-                              child: Text(
-                                'Nolan Sherman',
-                                style: TextStyle(
-                                    color: Colors.lightBlueAccent,
-                                    fontSize: 20,
-                                    decoration: TextDecoration.underline),
-                              ),
-                              onTap: () {
-                                launchURL(
-                                    'https://www.linkedin.com/in/nolanrsherman');
-                              },
-                              hoverColor: Colors.white,
-                            ),
-                          ],
-                        )
-                      : Container(),
-                ],
-              ),
-              SizedBox(height: 20),
-              Text(
-                appDescription,
-                style: TextStyle(fontSize: 25),
-                overflow: TextOverflow.clip,
-              ),
-              //github icon
-              github
-                  ? FlatButton(
-                      child: Image(image: AssetImage('images/github icon.png')),
-                      splashColor: Colors.white,
-                      onPressed: () {
-                        launchURL(url);
-                      },
-                      focusColor: Colors.white,
-                    )
-                  : Container(),
-              SizedBox(height: 100),
-            ]),
       ),
     );
   }
