@@ -10,6 +10,13 @@ import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 String name;
 String email;
 String message;
+launchURL(url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 TextEditingController controller = TextEditingController();
 TextEditingController controller2 = TextEditingController();
@@ -191,6 +198,7 @@ print( "A software developer that uses the'''
                       ExactAssetImage('images/weather search.png'),
                     ],
                     github: false,
+                    nolan: false,
                   ),
                   ProjectTile(
                     appTitle: 'Shopping List',
@@ -209,19 +217,21 @@ print( "A software developer that uses the'''
                       ExactAssetImage('images/Shopping list second bkgd.png'),
                     ],
                     github: false,
+                    nolan: false,
                   ),
                   ProjectTile(
                     appTitle: 'Breathe',
                     appDescription: 'A mobile application '
                         'that guides the user through a breathing mediation exercise. '
                         'This app was created for the 2020 Flutter Hackathon in '
-                        'collaboration with myself and Nicholas Sherman.',
+                        'collaboration with myself and Nolan Sherman',
                     images: [
                       ExactAssetImage('images/home.png'),
                       ExactAssetImage('images/Breathe_app_demo.gif'),
                       ExactAssetImage('images/stats.png'),
                     ],
                     url: "https://github.com/weare10/breathe",
+                    nolan: true,
                     github: true,
                   ),
                   Center(
@@ -389,12 +399,18 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
 
 class ProjectTile extends StatelessWidget {
   ProjectTile(
-      {this.appTitle, this.appDescription, this.images, this.url, this.github});
+      {this.appTitle,
+      this.appDescription,
+      this.images,
+      this.url,
+      this.github,
+      this.nolan});
   final String appTitle;
   final String appDescription;
   final images;
   final url;
   final bool github;
+  final bool nolan;
 
   launchURL(url) async {
     if (await canLaunch(url)) {
@@ -426,20 +442,56 @@ class ProjectTile extends StatelessWidget {
               ),
               //if mobile display in column, if desktop display in row
               //getValueForScreenType<Widget>(),
-              Container(
-                height: 500,
-                width: 300,
-                child: Carousel(
-                  images: images,
-                  dotColor: Colors.lightBlueAccent,
-                  dotIncreasedColor: Colors.lightBlueAccent,
-                  autoplay: false,
-                ),
+              Row(
+                children: [
+                  Container(
+                    height: 500,
+                    width: 300,
+                    child: Carousel(
+                      images: images,
+                      dotColor: Colors.lightBlueAccent,
+                      dotIncreasedColor: Colors.lightBlueAccent,
+                      autoplay: false,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  nolan
+                      ? Column(
+                          children: [
+                            Text(
+                              'Developers:',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Text(
+                              'Tateyana Hendricks',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            InkWell(
+                              child: Text(
+                                'Nolan Sherman',
+                                style: TextStyle(
+                                    color: Colors.lightBlueAccent,
+                                    fontSize: 20,
+                                    decoration: TextDecoration.underline),
+                              ),
+                              onTap: () {
+                                launchURL(
+                                    'https://www.linkedin.com/in/nolanrsherman');
+                              },
+                              hoverColor: Colors.white,
+                            ),
+                          ],
+                        )
+                      : Container(),
+                ],
               ),
               SizedBox(height: 20),
               Text(
                 appDescription,
                 style: TextStyle(fontSize: 25),
+                overflow: TextOverflow.clip,
               ),
               //github icon
               github
