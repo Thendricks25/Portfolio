@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:email_validator/email_validator.dart';
 
 class ContactFormFields extends StatefulWidget {
   @override
@@ -47,12 +48,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
               ),
               TextFormField(
                 controller: controller2,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "This field cannot be empty";
-                  }
-                  return null;
-                },
+                validator: validateEmail,
                 onSaved: (value) {
                   email = value;
                 },
@@ -99,4 +95,12 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
       ),
     );
   }
+}
+
+String validateEmail(email) {
+  bool validEmail = EmailValidator.validate(email);
+  if (validEmail == false) {
+    return 'Please Enter Valid Email';
+  }
+  return null;
 }
