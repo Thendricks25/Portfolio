@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:portfolio/sizeHelper.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -160,86 +162,119 @@ class MobileProjectTiles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 500,
-      child: Card(
-        margin: EdgeInsets.all(28),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
+    return Padding(
+      padding: EdgeInsets.only(
+          left: 8.0, bottom: displayHeight(context) * .1, top: 8),
+      child: Container(
+        width: displayWidth(context) * .9,
+        color: Colors.white10,
+        child: ListView(children: [
+          Column(
             children: [
               SizedBox(
                 height: 8,
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: displayWidth(context) * .07,
+                    fontWeight: FontWeight.bold),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Container(
-                    width: 150,
-                    height: 150,
-                    child: Image(image: AssetImage(appIcon))),
-              ),
-              nolan
-                  ? Column(
-                      children: [
-                        Text(
-                          'Developers:',
-                          style: TextStyle(fontSize: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          width: displayWidth(context) * .2,
+                          height: displayHeight(context) * .2,
+                          child: Image(image: AssetImage(appIcon))),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      nolan
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Developers:',
+                                  style: TextStyle(
+                                      fontSize: displayWidth(context) * .04),
+                                ),
+                                Text(
+                                  'Tateyana Hendricks',
+                                  style: TextStyle(
+                                      fontSize: displayWidth(context) * .04),
+                                ),
+                                InkWell(
+                                  child: Text(
+                                    'Nolan Sherman',
+                                    style: TextStyle(
+                                        color: Colors.lightBlueAccent,
+                                        fontSize: displayWidth(context) * .04,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                  onTap: () {
+                                    launchURL(
+                                        'https://www.linkedin.com/in/nolanrsherman');
+                                  },
+                                  hoverColor: Colors.white,
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: displayWidth(context) * .6,
+                        child: Text(
+                          shortDescription,
+                          style:
+                              TextStyle(fontSize: displayWidth(context) * .04),
+                          textAlign: TextAlign.left,
                         ),
-                        Text(
-                          'Tateyana Hendricks',
-                          style: TextStyle(fontSize: 20),
+                      ),
+                      InkWell(
+                        child: Text(
+                          'Learn More',
+                          style: TextStyle(
+                              color: Colors.lightBlueAccent,
+                              decoration: TextDecoration.underline,
+                              fontSize: displayWidth(context) * .04),
                         ),
-                        InkWell(
-                          child: Text(
-                            'Nolan Sherman',
-                            style: TextStyle(
-                                color: Colors.lightBlueAccent,
-                                fontSize: 20,
-                                decoration: TextDecoration.underline),
-                          ),
-                          onTap: () {
-                            launchURL(
-                                'https://www.linkedin.com/in/nolanrsherman');
-                          },
-                          hoverColor: Colors.white,
-                        ),
-                      ],
-                    )
-                  : Container(),
-              Text(shortDescription),
-              InkWell(
-                child: Text(
-                  'Learn More',
-                  style: TextStyle(
-                      color: Colors.lightBlueAccent,
-                      decoration: TextDecoration.underline),
-                ),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('App Description'),
-                          content: Text(longDescription),
-                          actions: [
-                            InkWell(
-                              child: Text('Close'),
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                },
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('App Description'),
+                                  content: Text(longDescription),
+                                  actions: [
+                                    InkWell(
+                                      child: Text('Close'),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
               OutlineButton(
-                  child: Text('View App Screenshots'),
+                  child: Text(
+                    'View App Screenshots',
+                    style: TextStyle(fontSize: displayWidth(context) * .04),
+                  ),
                   onPressed: () {
                     showDialog(
                       context: context,
@@ -269,7 +304,12 @@ class MobileProjectTiles extends StatelessWidget {
                   }),
               github
                   ? FlatButton(
-                      child: Image(image: AssetImage('images/github icon.png')),
+                      child: Container(
+                        width: displayWidth(context) * .1,
+                        height: displayHeight(context) * .1,
+                        child:
+                            Image(image: AssetImage('images/github icon.png')),
+                      ),
                       splashColor: Colors.white,
                       onPressed: () {
                         launchURL(url);
@@ -279,7 +319,7 @@ class MobileProjectTiles extends StatelessWidget {
                   : Container(),
             ],
           ),
-        ),
+        ]),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/sizeHelper.dart';
 import 'main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:email_validator/email_validator.dart';
@@ -12,13 +13,14 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      width: 370,
+      height: displayHeight(context) * .5,
       child: Form(
         key: checkTheForm,
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getValueForScreenType(
-                  context: context, mobile: 50, desktop: 0, tablet: 0)),
+                  context: context, mobile: 20, desktop: 0, tablet: 0)),
           child: Column(
             children: [
               TextFormField(
@@ -44,7 +46,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
                 style: TextStyle(color: Colors.black),
               ),
               SizedBox(
-                height: 25,
+                height: 15,
               ),
               TextFormField(
                 controller: controller2,
@@ -64,7 +66,7 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
                 style: TextStyle(color: Colors.black),
               ),
               SizedBox(
-                height: 25,
+                height: 15,
               ),
               TextFormField(
                 controller: controller3,
@@ -77,7 +79,8 @@ class _ContactFormFieldsState extends State<ContactFormFields> {
                 onSaved: (value) {
                   message = value;
                 },
-                maxLines: 15,
+                maxLines: getValueForScreenType(
+                    context: context, mobile: 5, desktop: 17),
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,

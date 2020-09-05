@@ -93,46 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               TitleLine(text: ' = flutterDeveloper( );'),
                             ],
                           ),
-                          mobile: Center(
-                            child: Column(
-                              children: [
-                                TitleLine(text: 'iAm'),
-                                TitleLine(
-                                    text: 'TateyanaHendricks',
-                                    color: Colors.lightBlueAccent),
-                                TitleLine(text: ' = flutterDeveloper( );'),
-                              ],
-                            ),
-                          ),
                         ),
                       ),
                       getValueForScreenType<Widget>(
                         context: context,
-                        mobile: Center(
-                          child: Column(
-                            children: [
-                              //Image of Me
-                              Image.asset(
-                                'images/cartoonMe.png',
-                                height: 200,
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Container(
-                                width: 400,
-                                child: Text(
-                                  '''flutterDeveloper () {
-print( "A software developer that uses the'''
-                                  'Dart Programming language in the Flutter framework to create '
-                                  '''mobile and web applications." );
-}''',
-                                  style: TextStyle(fontSize: 25),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
                         desktop: Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -148,11 +112,10 @@ print( "A software developer that uses the'''
                               Container(
                                 width: 400,
                                 child: Text(
-                                  '''flutterDeveloper () {
-print( "A software developer that uses the'''
-                                  'Dart Programming language in the Flutter framework to create '
-                                  '''mobile and web applications." );
-}''',
+                                  'I am a cross platform software developer that utilizes '
+                                  'the Flutter Framework to create mobile and web applications.'
+                                  ' When I am not creating applications you will find me spoiling my dog or'
+                                  ' reading a book.',
                                   style: TextStyle(fontSize: 25),
                                 ),
                               )
@@ -162,6 +125,7 @@ print( "A software developer that uses the'''
                       ),
                       Center(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding:
@@ -226,7 +190,7 @@ print( "A software developer that uses the'''
                       ProjectTile(
                         appTitle: 'Breathe',
                         appDescription: 'A mobile application '
-                            'that guides the user through a breathing mediation exercise. '
+                            'that guides the user through a breathing meditation exercise. '
                             'This app was created for the 2020 Flutter Hackathon in '
                             'collaboration with myself and Nolan Sherman',
                         images: [
