@@ -32,15 +32,13 @@ class ProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal:
-            getValueForScreenType(context: context, mobile: 50, desktop: 100),
-      ),
-      child: Center(
-        child: Container(
-          child: Row(children: [
-            Column(
-              children: [
+        padding: EdgeInsets.symmetric(
+          horizontal: 100,
+        ),
+        child: Center(
+          child: Container(
+            child: Row(children: [
+              Column(children: [
                 Text(
                   appTitle,
                   style: TextStyle(fontSize: 30),
@@ -49,15 +47,11 @@ class ProjectTile extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                //if mobile display in column, if desktop display in row
-                //getValueForScreenType<Widget>(),
                 Row(
                   children: [
                     Container(
-                      height: getValueForScreenType(
-                          context: context, desktop: 500, mobile: 250),
-                      width: getValueForScreenType(
-                          context: context, desktop: 300, mobile: 150),
+                      height: 500,
+                      width: 300,
                       child: Carousel(
                         images: images,
                         dotColor: Colors.lightBlueAccent,
@@ -68,68 +62,65 @@ class ProjectTile extends StatelessWidget {
                     SizedBox(
                       width: 15,
                     ),
-                    nolan
-                        ? Column(
-                            children: [
-                              Text(
-                                'Developers:',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              Text(
-                                'Tateyana Hendricks',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              InkWell(
-                                child: Text(
-                                  'Nolan Sherman',
-                                  style: TextStyle(
-                                      color: Colors.lightBlueAccent,
-                                      fontSize: 20,
-                                      decoration: TextDecoration.underline),
+                    Column(children: [
+                      nolan
+                          ? Column(
+                              children: [
+                                Text(
+                                  'Developers:',
+                                  style: TextStyle(fontSize: 20),
                                 ),
-                                onTap: () {
-                                  launchURL(
-                                      'https://www.linkedin.com/in/nolanrsherman');
-                                },
-                                hoverColor: Colors.white,
-                              ),
-                            ],
-                          )
-                        : Container(),
+                                Text(
+                                  'Tateyana Hendricks',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                InkWell(
+                                  child: Text(
+                                    'Nolan Sherman',
+                                    style: TextStyle(
+                                        color: Colors.lightBlueAccent,
+                                        fontSize: 20,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                  onTap: () {
+                                    launchURL(
+                                        'https://www.linkedin.com/in/nolanrsherman');
+                                  },
+                                  hoverColor: Colors.white,
+                                ),
+                                SizedBox(height: 25),
+                              ],
+                            )
+                          : Container(),
+                      Container(
+                        width: 300,
+                        child: Text(
+                          appDescription,
+                          style: TextStyle(
+                              fontSize: getValueForScreenType(
+                                  context: context, desktop: 25, mobile: 15)),
+                        ),
+                      ),
+                      //github icon
+                      github
+                          ? FlatButton(
+                              child: Image(
+                                  image: AssetImage('images/github icon.png')),
+                              splashColor: Colors.white,
+                              onPressed: () {
+                                launchURL(url);
+                              },
+                              focusColor: Colors.white,
+                            )
+                          : Container(),
+                    ])
                   ],
                 ),
-              ],
-            ),
-            Column(
-              children: [
-                Container(
-                  width: 300,
-                  child: Text(
-                    appDescription,
-                    style: TextStyle(
-                        fontSize: getValueForScreenType(
-                            context: context, desktop: 25, mobile: 15)),
-                  ),
-                ),
-                //github icon
-                github
-                    ? FlatButton(
-                        child:
-                            Image(image: AssetImage('images/github icon.png')),
-                        splashColor: Colors.white,
-                        onPressed: () {
-                          launchURL(url);
-                        },
-                        focusColor: Colors.white,
-                      )
-                    : Container(),
-              ],
-            ),
-            SizedBox(height: 100),
-          ]),
-        ),
-      ),
-    );
+                SizedBox(height: 100),
+              ]),
+            ]),
+          ),
+        ));
   }
 }
 

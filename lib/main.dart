@@ -2,46 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/MobileView.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher_web/url_launcher_web.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:portfolio/ContactForm.dart';
 import 'ProjectTiles.dart';
 
-String name;
-String email;
-String message;
-launchURL(url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
-TextEditingController controller = TextEditingController();
-TextEditingController controller2 = TextEditingController();
-TextEditingController controller3 = TextEditingController();
-final checkTheForm = GlobalKey<FormState>();
+//this is for the scrollbar in desktop view
 ScrollController scrollController = ScrollController();
-
-FirebaseFirestore firestore = FirebaseFirestore.instance;
-submitForm() {
-  firestore.collection('contact').add({
-    'Name': name,
-    'Email': email,
-    'Message': message,
-  });
-}
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //Everytime the scrollbar is dragged it will update the position of the web page.
   scrollCallBack(DragUpdateDetails dragUpdate) {
     setState(() {
       scrollController.position.moveTo(dragUpdate.globalPosition.dy * 4.5);
@@ -76,51 +49,43 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: scrollController,
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 50),
-                        child: getValueForScreenType(
-                          context: context,
-                          desktop: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TitleLine(text: 'iAm'),
-                              TitleLine(
-                                  text: 'TateyanaHendricks',
-                                  color: Colors.lightBlueAccent),
-                              TitleLine(text: ' = flutterDeveloper( );'),
-                            ],
-                          ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TitleLine(
+                                text: 'TateyanaHendricks',
+                                color: Colors.lightBlueAccent),
+                            TitleLine(text: ' Flutter Developer'),
+                          ],
                         ),
                       ),
-                      getValueForScreenType<Widget>(
-                        context: context,
-                        desktop: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //Image of Me
-                              Image.asset(
-                                'images/cartoonMe.png',
-                                height: 200,
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            //Image of Me
+                            Image.asset(
+                              'images/cartoonMe.png',
+                              height: 200,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              width: 400,
+                              child: Text(
+                                'I am a cross platform software developer that utilizes '
+                                'the Flutter Framework to create mobile and web applications.'
+                                ' When I am not creating applications you will find me spoiling my dog or'
+                                ' reading a book.',
+                                style: TextStyle(fontSize: 25),
                               ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Container(
-                                width: 400,
-                                child: Text(
-                                  'I am a cross platform software developer that utilizes '
-                                  'the Flutter Framework to create mobile and web applications.'
-                                  ' When I am not creating applications you will find me spoiling my dog or'
-                                  ' reading a book.',
-                                  style: TextStyle(fontSize: 25),
-                                ),
-                              )
-                            ],
-                          ),
+                            )
+                          ],
                         ),
                       ),
                       Center(
@@ -217,35 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Center(
                           child: Column(
                             children: [
-                              ContactFormFields(),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Builder(
-                                builder: (context) => OutlineButton(
-                                  onPressed: () {
-                                    if (checkTheForm.currentState.validate()) {
-                                      checkTheForm.currentState.save();
-                                      submitForm();
-                                      controller.clear();
-                                      controller2.clear();
-                                      controller3.clear();
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content: Text('Message Sent')));
-                                    }
-                                  },
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyle(
-                                        color: Colors.lightBlueAccent),
-                                  ),
-                                  color: Colors.lightBlueAccent,
-                                  splashColor: Colors.white,
-                                  focusColor: Colors.lightBlueAccent,
-                                  hoverColor: Colors.white10,
-                                ),
-                              )
+                              ContactForm(),
                             ],
                           ),
                         ),
@@ -281,10 +218,7 @@ class TitleLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: getValueForScreenType(
-              context: context, mobile: 20, tablet: 30, desktop: 45),
-          color: color),
+      style: TextStyle(fontSize: 45, color: color),
     );
   }
 }

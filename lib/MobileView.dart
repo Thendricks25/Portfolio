@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:portfolio/sizeHelper.dart';
 import 'ContactForm.dart';
 import 'ProjectTiles.dart';
-import 'main.dart';
 
 class MobileView extends StatefulWidget {
   @override
@@ -18,16 +16,25 @@ class _MobileViewState extends State<MobileView> {
         child: Scaffold(
             appBar: AppBar(
               bottom: TabBar(
-                tabs: [Text('About'), Text('Portfolio'), Text('Contact')],
+                tabs: [
+                  TabWords(text: 'About'),
+                  TabWords(text: 'Portfolio'),
+                  TabWords(text: 'Contact')
+                ],
               ),
               title: Center(
                 child: Column(
                   children: [
                     Text(
                       'Tateyana Hendricks',
-                      style: TextStyle(color: Colors.lightBlueAccent),
+                      style: TextStyle(
+                          color: Colors.lightBlueAccent,
+                          fontSize: displayWidth(context) * .06),
                     ),
-                    Text('Flutter Developer'),
+                    Text(
+                      'Flutter Developer',
+                      style: TextStyle(fontSize: displayWidth(context) * .06),
+                    ),
                   ],
                 ),
               ),
@@ -181,35 +188,21 @@ class _MobileViewState extends State<MobileView> {
                             ),
                           ),
                         ),
-                        ContactFormFields(),
-                        Builder(
-                          builder: (context) => OutlineButton(
-                            onPressed: () {
-                              if (checkTheForm.currentState.validate()) {
-                                checkTheForm.currentState.save();
-                                submitForm();
-                                controller.clear();
-                                controller2.clear();
-                                controller3.clear();
-                                Scaffold.of(context).showSnackBar(
-                                    SnackBar(content: Text('Message Sent')));
-                              }
-                            },
-                            child: Text(
-                              'Submit',
-                              style: TextStyle(color: Colors.lightBlueAccent),
-                            ),
-                            color: Colors.lightBlueAccent,
-                            splashColor: Colors.white,
-                            focusColor: Colors.lightBlueAccent,
-                            hoverColor: Colors.white10,
-                          ),
-                        )
+                        ContactForm(),
                       ],
                     ),
                   ),
                 ]),
               ],
             )));
+  }
+}
+
+class TabWords extends StatelessWidget {
+  TabWords({this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(text, style: TextStyle(fontSize: displayWidth(context) * .05));
   }
 }
