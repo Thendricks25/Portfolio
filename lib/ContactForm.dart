@@ -34,7 +34,7 @@ class _ContactFormState extends State<ContactForm> {
       children: [
         Container(
           width: 370,
-          height: displayHeight(context) * .5,
+          height: displayHeight(context) * .7,
           child: Form(
             key: checkTheForm,
             child: Padding(
@@ -112,37 +112,37 @@ class _ContactFormState extends State<ContactForm> {
                     textCapitalization: TextCapitalization.words,
                     style: TextStyle(color: Colors.black),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Builder(
+                    builder: (context) => OutlineButton(
+                      onPressed: () {
+                        if (checkTheForm.currentState.validate()) {
+                          checkTheForm.currentState.save();
+                          submitForm();
+                          controller.clear();
+                          controller2.clear();
+                          controller3.clear();
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Message Sent')));
+                        }
+                      },
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.lightBlueAccent),
+                      ),
+                      color: Colors.lightBlueAccent,
+                      splashColor: Colors.white,
+                      focusColor: Colors.lightBlueAccent,
+                      hoverColor: Colors.white10,
+                    ),
+                  )
                 ],
               ),
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Builder(
-          builder: (context) => OutlineButton(
-            onPressed: () {
-              if (checkTheForm.currentState.validate()) {
-                checkTheForm.currentState.save();
-                submitForm();
-                controller.clear();
-                controller2.clear();
-                controller3.clear();
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('Message Sent')));
-              }
-            },
-            child: Text(
-              'Submit',
-              style: TextStyle(color: Colors.lightBlueAccent),
-            ),
-            color: Colors.lightBlueAccent,
-            splashColor: Colors.white,
-            focusColor: Colors.lightBlueAccent,
-            hoverColor: Colors.white10,
-          ),
-        )
       ],
     );
   }

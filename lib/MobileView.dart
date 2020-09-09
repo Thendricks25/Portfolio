@@ -28,12 +28,13 @@ class _MobileViewState extends State<MobileView> {
                     Text(
                       'Tateyana Hendricks',
                       style: TextStyle(
-                          color: Colors.lightBlueAccent,
-                          fontSize: displayWidth(context) * .06),
+                        color: Colors.lightBlueAccent,
+//                          fontSize: displayWidth(context) * .06),
+                      ),
                     ),
                     Text(
                       'Flutter Developer',
-                      style: TextStyle(fontSize: displayWidth(context) * .06),
+//                      style: TextStyle(fontSize: displayWidth(context) * .06),
                     ),
                   ],
                 ),
@@ -177,7 +178,7 @@ class _MobileViewState extends State<MobileView> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 18.0, bottom: 0),
+                          padding: const EdgeInsets.only(top: 18.0, bottom: 8),
                           child: Center(
                             child: Text(
                               'Contact',
@@ -203,6 +204,6 @@ class TabWords extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: TextStyle(fontSize: displayWidth(context) * .05));
+    return Text(text, style: TextStyle(fontSize: 15));
   }
 }

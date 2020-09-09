@@ -37,7 +37,7 @@ class ProjectTile extends StatelessWidget {
         ),
         child: Center(
           child: Container(
-            child: Row(children: [
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Column(children: [
                 Text(
                   appTitle,
@@ -158,159 +158,163 @@ class MobileProjectTiles extends StatelessWidget {
           left: 8.0, bottom: displayHeight(context) * .1, top: 8),
       child: Container(
         width: displayWidth(context) * .9,
-        color: Colors.white10,
-        child: ListView(children: [
-          Column(
-            children: [
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                title,
-                style: TextStyle(
-                    fontSize: displayWidth(context) * .07,
-                    fontWeight: FontWeight.bold),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          width: displayWidth(context) * .2,
-                          height: displayHeight(context) * .2,
-                          child: Image(image: AssetImage(appIcon))),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      nolan
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Developers:',
-                                  style: TextStyle(
-                                      fontSize: displayWidth(context) * .04),
-                                ),
-                                Text(
-                                  'Tateyana Hendricks',
-                                  style: TextStyle(
-                                      fontSize: displayWidth(context) * .04),
-                                ),
-                                InkWell(
-                                  child: Text(
-                                    'Nolan Sherman',
+        height: 200,
+        child: Card(
+          child: ListView(children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize: displayWidth(context) * .07,
+                      fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: displayWidth(context) * .2,
+                            height: displayHeight(context) * .2,
+                            child: Image(image: AssetImage(appIcon))),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        nolan
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Developers:',
                                     style: TextStyle(
-                                        color: Colors.lightBlueAccent,
-                                        fontSize: displayWidth(context) * .04,
-                                        decoration: TextDecoration.underline),
+                                        fontSize: displayWidth(context) * .04),
                                   ),
-                                  onTap: () {
-                                    launchURL(
-                                        'https://www.linkedin.com/in/nolanrsherman');
-                                  },
-                                  hoverColor: Colors.white,
-                                ),
-                              ],
-                            )
-                          : Container(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: displayWidth(context) * .6,
-                        child: Text(
-                          shortDescription,
-                          style:
-                              TextStyle(fontSize: displayWidth(context) * .04),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      InkWell(
-                        child: Text(
-                          'Learn More',
-                          style: TextStyle(
-                              color: Colors.lightBlueAccent,
-                              decoration: TextDecoration.underline,
-                              fontSize: displayWidth(context) * .04),
-                        ),
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('App Description'),
-                                  content: Text(longDescription),
-                                  actions: [
-                                    InkWell(
-                                      child: Text('Close'),
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
+                                  Text(
+                                    'Tateyana Hendricks',
+                                    style: TextStyle(
+                                        fontSize: displayWidth(context) * .04),
+                                  ),
+                                  InkWell(
+                                    child: Text(
+                                      'Nolan Sherman',
+                                      style: TextStyle(
+                                          color: Colors.lightBlueAccent,
+                                          fontSize: displayWidth(context) * .04,
+                                          decoration: TextDecoration.underline),
                                     ),
-                                  ],
-                                );
-                              });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              OutlineButton(
-                  child: Text(
-                    'View App Screenshots',
-                    style: TextStyle(fontSize: displayWidth(context) * .04),
-                  ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Screenshots'),
-                          content: Container(
-                            height: 300,
-                            width: 150,
-                            child: Carousel(
-                              images: images,
-                              dotColor: Colors.lightBlueAccent,
-                              dotIncreasedColor: Colors.lightBlueAccent,
-                              autoplay: false,
-                            ),
+                                    onTap: () {
+                                      launchURL(
+                                          'https://www.linkedin.com/in/nolanrsherman');
+                                    },
+                                    hoverColor: Colors.white,
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: displayWidth(context) * .6,
+                          child: Text(
+                            shortDescription,
+                            style: TextStyle(
+                                fontSize: displayWidth(context) * .04),
+                            textAlign: TextAlign.left,
                           ),
-                          actions: [
-                            FlatButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Close'))
-                          ],
-                        );
-                      },
-                    );
-                  }),
-              github
-                  ? FlatButton(
-                      child: Container(
-                        width: displayWidth(context) * .1,
-                        height: displayHeight(context) * .1,
-                        child:
-                            Image(image: AssetImage('images/github icon.png')),
-                      ),
-                      splashColor: Colors.white,
-                      onPressed: () {
-                        launchURL(url);
-                      },
-                      focusColor: Colors.white,
-                    )
-                  : Container(),
-            ],
-          ),
-        ]),
+                        ),
+                        InkWell(
+                          child: Text(
+                            'Learn More',
+                            style: TextStyle(
+                                color: Colors.lightBlueAccent,
+                                decoration: TextDecoration.underline,
+                                fontSize: displayWidth(context) * .04),
+                          ),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('App Description'),
+                                    content: Text(longDescription),
+                                    actions: [
+                                      InkWell(
+                                        child: Text('Close'),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                OutlineButton(
+                    child: Text(
+                      'View App Screenshots',
+                      style: TextStyle(fontSize: displayWidth(context) * .04),
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Screenshots'),
+                            content: Container(
+                              height: displayHeight(context) * .8,
+                              width: 200,
+                              child: Carousel(
+                                overlayShadowSize: .005,
+                                boxFit: BoxFit.fitHeight,
+                                images: images,
+                                dotColor: Colors.lightBlueAccent,
+                                dotIncreasedColor: Colors.lightBlueAccent,
+                                autoplay: false,
+                              ),
+                            ),
+                            actions: [
+                              FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Close'))
+                            ],
+                          );
+                        },
+                      );
+                    }),
+                github
+                    ? FlatButton(
+                        child: Container(
+                          width: displayWidth(context) * .1,
+                          height: displayHeight(context) * .1,
+                          child: Image(
+                              image: AssetImage('images/github icon.png')),
+                        ),
+                        splashColor: Colors.white,
+                        onPressed: () {
+                          launchURL(url);
+                        },
+                        focusColor: Colors.white,
+                      )
+                    : Container(),
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }
