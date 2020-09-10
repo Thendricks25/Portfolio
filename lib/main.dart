@@ -170,6 +170,21 @@ class _MyHomePageState extends State<MyHomePage> {
                           nolan: true,
                           github: true,
                         ),
+                        ProjectTile(
+                          nolan: false,
+                          images: [
+                            ExactAssetImage('images/mobileviewPortfolio.png'),
+                            ExactAssetImage('images/desktopviewPortfolio.png'),
+                          ],
+                          url: 'https://github.com/Thendricks25/Portfolio',
+                          github: true,
+                          appDescription:
+                              'I created this Portfolio site using Flutter web. That means '
+                              'that I used the same programing language (Dart) that I do when I am programming '
+                              'mobile applications. That is the beauty of Flutter. I can code everything with a single '
+                              'language and it will take care of converting it so that it will work on multiple platforms.',
+                          appTitle: 'Portfolio',
+                        ),
                         Center(
                           child: Text(
                             'Contact me',

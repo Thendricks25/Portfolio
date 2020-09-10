@@ -174,8 +174,8 @@ class _MobileViewState extends State<MobileView> {
                                       'I created this Portfolio site using Flutter web...',
                                   longDescription:
                                       'I created this Portfoio site using Flutter web. That means '
-                                      'that I used the same programing language (Dart) that I do when I am programming'
-                                      'mobile applications. That is the beauty of Flutter. I can code everything with a single'
+                                      'that I used the same programing language (Dart) that I do when I am programming '
+                                      'mobile applications. That is the beauty of Flutter. I can code everything with a single '
                                       'language and it will take care of converting it so that it will work on multiple platforms.',
                                   github: true,
                                   url:
