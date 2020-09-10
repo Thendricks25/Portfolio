@@ -186,6 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Column(
                               children: [
                                 ContactForm(),
+                                SizedBox(height: 50),
                               ],
                             ),
                           ),

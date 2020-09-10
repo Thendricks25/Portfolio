@@ -275,7 +275,7 @@ class MobileProjectTiles extends StatelessWidget {
                             title: Text('Screenshots'),
                             content: Container(
                               height: displayHeight(context) * .8,
-                              width: 200,
+                              width: 300,
                               child: Carousel(
                                 overlayShadowSize: .005,
                                 boxFit: BoxFit.fitHeight,

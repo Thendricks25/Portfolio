@@ -100,7 +100,7 @@ class _ContactFormState extends State<ContactForm> {
                       message = value;
                     },
                     maxLines: getValueForScreenType(
-                        context: context, mobile: 5, desktop: 17),
+                        context: context, mobile: 5, desktop: 10),
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
@@ -113,7 +113,7 @@ class _ContactFormState extends State<ContactForm> {
                     style: TextStyle(color: Colors.black),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   Builder(
                     builder: (context) => OutlineButton(
@@ -136,8 +136,12 @@ class _ContactFormState extends State<ContactForm> {
                       splashColor: Colors.white,
                       focusColor: Colors.lightBlueAccent,
                       hoverColor: Colors.white10,
+                      borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2,
+                          style: BorderStyle.solid),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
